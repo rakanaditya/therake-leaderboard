@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Leaderboard</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-6">
+  <h1 class="text-3xl font-bold">Game Leaderboard</h1>
+  
+  <div class="flex gap-6 my-4">
+    <div id="totalPlayers">👤 Total Players: 0</div>
+    <div id="totalPoints">⭐ Total Points: 0</div>
+    <div id="totalSurvivals">🛡️ Total Survivals: 0</div>
+  </div>
+
+  <table class="w-full border-collapse border border-gray-700">
+    <thead>
+      <tr>
+        <th class="border p-2">Rank</th>
+        <th class="border p-2">Player</th>
+        <th class="border p-2">Points</th>
+        <th class="border p-2">Survivals</th>
+        <th class="border p-2">Last Updated</th>
+      </tr>
+    </thead>
+    <tbody id="leaderboard-body">
+      <!-- Data player dimasukkan lewat JS -->
+    </tbody>
+  </table>
+
+  <script>
+    async function loadData() {
+      try {
+        const res = await fetch("/api/leaderboard"); // ambil lewat proxy backend
+        const players = await res.json();
+
+        // Hitung total
+        const totalPoints = players.reduce((a, b) => a + Number(b.points), 0);
+        const totalSurvivals = players.reduce((a, b) => a + Number(b.survivals), 0);
+
+        document.getElementById("totalPlayers").textContent = "👤 Total Players: " + players.length;
+        document.getElementById("totalPoints").textContent = "⭐ Total Points: " + totalPoints;
+        document.getElementById("totalSurvivals").textContent = "🛡️ Total Survivals: " + totalSurvivals;
+
+        // Sort by points dan render ke tabel
+        const sorted = players.sort((a, b) => b.points - a.points);
+        const tbody = document.getElementById("leaderboard-body");
+        tbody.innerHTML = "";
+
+        sorted.forEach((p, i) => {
+          const row = `
+            <tr>
+              <td class="border p-2">${i+1}</td>
+              <td class="border p-2">${p.username}</td>
+              <td class="border p-2">${p.points}</td>
+              <td class="border p-2">${p.survivals}</td>
+              <td class="border p-2">${p.lastUpdated}</td>
+            </tr>
+          `;
+          tbody.innerHTML += row;
+        });
+      } catch (err) {
+        console.error("Gagal load leaderboard:", err);
+      }
+    }
+
+    loadData();
+  </script>
+</body>
+</html>
