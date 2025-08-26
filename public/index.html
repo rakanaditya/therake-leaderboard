@@ -73,17 +73,28 @@
         tbody.innerHTML = "";
 
         sorted.forEach((p, i) => {
-          const row = `
-            <tr>
-              <td class="border p-2">${i+1}</td>
-              <td class="border p-2">${p.username}</td>
-              <td class="border p-2">${p.points}</td>
-              <td class="border p-2">${p.survivals}</td>
-              <td class="border p-2">${p.lastUpdated}</td>
-            </tr>
-          `;
-          tbody.innerHTML += row;
-        });
+  // Ubah format waktu ke WIB
+  let formattedDate = "";
+  if (p.lastUpdated) {
+    formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
+      timeZone: "Asia/Jakarta",
+      dateStyle: "short",
+      timeStyle: "medium"
+    });
+  }
+
+  const row = `
+    <tr>
+      <td class="border p-2">${i+1}</td>
+      <td class="border p-2">${p.username}</td>
+      <td class="border p-2">${p.points}</td>
+      <td class="border p-2">${p.survivals}</td>
+      <td class="border p-2">${formattedDate}</td>
+    </tr>
+  `;
+  tbody.innerHTML += row;
+});
+
       } catch (err) {
         console.error("Gagal load leaderboard:", err);
       }
