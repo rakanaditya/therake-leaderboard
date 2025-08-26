@@ -4,8 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game The Rake</title>
- 
- <style>
+  <style>
     body {
       font-family: Arial, sans-serif;
       background: #111;
@@ -25,11 +24,62 @@
     th {
       background: #222;
     }
+    .gamepass-list, .top-donatur {
+      margin-top: 30px;
+    }
+    .gamepass-item, .donatur-item {
+      background: #222;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .gamepass-item a, .donatur-item a {
+      color: #0af;
+      text-decoration: none;
+    }
+    .play-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 20px;
+      background: #0af;
+      color: #111;
+      font-weight: bold;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .play-button:hover {
+      background: #08c;
+    }
+    .donatur-item img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+    .badge-top {
+      background: gold;
+      color: black;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: bold;
+      margin-left: 5px;
+      animation: bounce 1s infinite alternate;
+    }
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-5px); }
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
   </style>
-
-
 </head>
-<body class="bg-gray-900 text-white min-h-screen p-6">
+<body>
   <h1 class="text-3xl font-bold">Game Leaderboard The Rake REMASTERED INDONESIA</h1>
   
   <div class="flex gap-6 my-4">
@@ -53,13 +103,55 @@
     </tbody>
   </table>
 
+  <!-- Gamepass -->
+  <div class="gamepass-list">
+    <h2 class="text-xl font-bold">Gamepass</h2>
+    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532437/HeadLamp" target="_blank">🎩 Head Lamp - 35 Robux</a></div>
+    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532513/NightVision" target="_blank">🌙 Night Vision - 160 Robux</a></div>
+    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532680/StunStick" target="_blank">⚡ Stun Stick - 360 Robux</a></div>
+    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532767/BoomBox" target="_blank">📻 Boom Box - 100 Robux</a></div>
+    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532863/VIP" target="_blank">👑 VIP - 300 Robux</a></div>
+  </div>
+
+  <!-- Play Game Button -->
+<a class="play-button" href="https://www.roblox.com/games/11399819772/The-Rake-REMASTERED-Indonesia" target="_blank">PLAY GAME</a>
+
+
+  <!-- Top Donatur -->
+  <div class="top-donatur">
+    <h2 class="text-xl font-bold mt-6">Top 5 Donatur</h2>
+    <div class="donatur-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 1">
+      <div><strong>Donatur 1</strong> <span class="badge-top">TOP Donatur</span><br>IDR 100.000</div>
+    </div>
+    <div class="donatur-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 2">
+      <div><strong>Donatur 2</strong><br>IDR 7.500</div>
+    </div>
+    <div class="donatur-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 3">
+      <div><strong>Donatur 3</strong><br>IDR 5.000</div>
+    </div>
+    <div class="donatur-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 4">
+      <div><strong>Donatur 4</strong><br>IDR 3.500</div>
+    </div>
+    <div class="donatur-item">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 5">
+      <div><strong>Donatur 5</strong><br>IDR 2.000</div>
+    </div>
+  </div>
+
+  <footer>
+    © 2025 Dibuat oleh Aditya Ganteng. Jika ingin ditampilkan di leaderboard top Donatur, bantu dengan cara donasi di <a href="https://sociabuzz.com/rakanadityaofficial/tribe" target="_blank">dukungan Sociabuzz</a>.
+  </footer>
+
   <script>
     async function loadData() {
       try {
-        const res = await fetch("/api/leaderboard"); // ambil lewat proxy backend
+        const res = await fetch("/api/leaderboard");
         const players = await res.json();
 
-        // Hitung total
         const totalPoints = players.reduce((a, b) => a + Number(b.points), 0);
         const totalSurvivals = players.reduce((a, b) => a + Number(b.survivals), 0);
 
@@ -67,34 +159,31 @@
         document.getElementById("totalPoints").textContent = "⭐ Total Points: " + totalPoints;
         document.getElementById("totalSurvivals").textContent = "🛡️ Total Survivals: " + totalSurvivals;
 
-        // Sort by points dan render ke tabel
         const sorted = players.sort((a, b) => b.points - a.points);
         const tbody = document.getElementById("leaderboard-body");
         tbody.innerHTML = "";
 
         sorted.forEach((p, i) => {
-  // Ubah format waktu ke WIB
-  let formattedDate = "";
-  if (p.lastUpdated) {
-    formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
-      timeZone: "Asia/Jakarta",
-      dateStyle: "short",
-      timeStyle: "medium"
-    });
-  }
+          let formattedDate = "";
+          if (p.lastUpdated) {
+            formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
+              timeZone: "Asia/Jakarta",
+              dateStyle: "short",
+              timeStyle: "medium"
+            });
+          }
 
-  const row = `
-    <tr>
-      <td class="border p-2">${i+1}</td>
-      <td class="border p-2">${p.username}</td>
-      <td class="border p-2">${p.points}</td>
-      <td class="border p-2">${p.survivals}</td>
-      <td class="border p-2">${formattedDate}</td>
-    </tr>
-  `;
-  tbody.innerHTML += row;
-});
-
+          const row = `
+            <tr>
+              <td class="border p-2">${i+1}</td>
+              <td class="border p-2">${p.username}</td>
+              <td class="border p-2">${p.points}</td>
+              <td class="border p-2">${p.survivals}</td>
+              <td class="border p-2">${formattedDate}</td>
+            </tr>
+          `;
+          tbody.innerHTML += row;
+        });
       } catch (err) {
         console.error("Gagal load leaderboard:", err);
       }
