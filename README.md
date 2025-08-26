@@ -1,7 +1,7 @@
 # Roblox Game The Rake REMASTERED Indonesia Website
 
 Website sederhana untuk menampilkan  Total Players, Total Points, Total Survivals
-
+Link Game ROBLOX : [Join Game!] (https://www.roblox.com/games/11399819772/The-Rake-REMASTERED-Indonesia)!
 ---
 
 ## //Fitur\\\
