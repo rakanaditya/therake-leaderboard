@@ -1,10 +1,10 @@
 # Roblox Game The Rake REMASTERED Indonesia Website
 
-Website sederhana untuk menampilkan 👤 Total Players, Total Points, Total Survivals
+Website sederhana untuk menampilkan  Total Players, Total Points, Total Survivals
 
 ---
 
-## 🚀 Fitur
+## //Fitur\\
 - Menampilkan username Roblox.
 - Menampilkan jumlah data Points & Survivals
 - Menampilkan Top Ranking
