@@ -5,9 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gamepass Shop - The Rake</title>
   <style>
-    body { font-family: Arial, sans-serif; background:#111; color:white; margin:0; }
-    .navbar { background:#222; padding:12px 20px; display:flex; flex-wrap:wrap; gap:10px; }
-    .navbar a { color:#0af; text-decoration:none; margin-right:15px; font-weight:bold; }
+     body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+      padding: 0;
+      margin: 0;
+    }
+
+ /* Navbar */
+    .navbar {
+      background: #222;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #0af;
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    .navbar a:hover {
+      color: #0af;
+    }
 
     .gamepass-list { padding:20px; max-width:800px; margin:auto; }
     .gamepass-list h2 { margin-bottom:20px; }
