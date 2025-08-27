@@ -55,24 +55,7 @@
     .play-button:hover {
       background: #08c;
     }
-    .donatur-item img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-    .badge-top {
-      background: gold;
-      color: black;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: bold;
-      margin-left: 5px;
-      animation: bounce 1s infinite alternate;
-    }
-    @keyframes bounce {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-5px); }
-    }
+    
 
    
 
@@ -109,6 +92,65 @@ footer {
   text-align: center;
   padding: 10px 0;
 }
+
+h1 {
+      font-size: 24px;
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      justify-items: center;
+    }
+    .card {
+      background: #2d2d50;
+      border-radius: 12px;
+      padding: 15px;
+      width: 150px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+      position: relative;
+    }
+    .card img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+      border: 2px solid #555;
+    }
+    .card h3 {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+    .card p {
+      font-size: 14px;
+      margin: 3px 0;
+    }
+    /* Highlight Top Donor */
+    .top-donor {
+      border: 2px solid gold;
+    }
+    .crown {
+      position: absolute;
+      top: -25px;
+      right: -15px;
+      font-size: 28px;
+      animation: crownMove 5.0s infinite ease-in-out;
+    }
+    @keyframes crownMove {
+  0%   { transform: rotate(0deg) translateY(0); }
+  50%  { transform: rotate(0deg)
+translateY(5px); }
+  100% { transform: rotate(0deg) translateY(0); }
+}
+
+    .highlight {
+      color: gold;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
 
   </style>
 </head>
@@ -158,31 +200,48 @@ footer {
 <a class="play-button" href="https://www.roblox.com/games/11399819772/The-Rake-REMASTERED-Indonesia" target="_blank">PLAY GAME</a>
 
 
-  <!-- Top Donatur -->
-  <div class="top-donatur">
-    <h2 class="text-xl font-bold mt-6">Top 5 Donatur</h2>
-    <div class="donatur-item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 1">
-      <div><strong>Donatur 1</strong> <span class="badge-top">TOP Donatur</span><br>IDR 100.000</div>
+ <h1>🏆 Top Donatur</h1>
+
+  <div class="grid">
+    <!-- Top Donor -->
+    <div class="card top-donor">
+      <div class="crown">👑</div>
+      <img src="https://images-ext-1.discordapp.net/external/LacSS3dhwzX0WLC5AmIm2w9eB5kl81CS4FyxEJAG7vE/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/837180937363521556/f0997f2a95a57f1299c73c8652bd612c.png" alt="donor">
+      <h3>Kodok</h3>
+      <p>Rp 100.000</p>
+      <p class="highlight">★ Top Donation</p>
     </div>
-    <div class="donatur-item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 2">
-      <div><strong>Donatur 2</strong><br>IDR 7.500</div>
+
+    <div class="card">
+      <img src="https://images-ext-1.discordapp.net/external/kz9mw-WoVwViFtmotZrYu3LbRUnbg_X48CkUtUjVK5w/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/951444087532298261/8e8fcf8d8793b5b20783d31da7122c93.png" alt="donor">
+      <h3>Deonandra</h3>
+      <p>Rp 10.000</p>
     </div>
-    <div class="donatur-item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 3">
-      <div><strong>Donatur 3</strong><br>IDR 5.000</div>
+
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="donor">
+      <h3>Koko Barra</h3>
+      <p>Rp 10.000</p>
     </div>
-    <div class="donatur-item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 4">
-      <div><strong>Donatur 4</strong><br>IDR 3.500</div>
+
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="donor">
+      <h3>Donatur 4</h3>
+      <p>Rp 10.000</p>
     </div>
-    <div class="donatur-item">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="Profile Top 5">
-      <div><strong>Donatur 5</strong><br>IDR 2.000</div>
+
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="donor">
+      <h3>Donatur 5</h3>
+      <p>Rp 10.000</p>
+    </div>
+
+    <div class="card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ0GSIMHaGnZU2aTztjh9h9KjWOQspe0-qUMg&s" alt="donor">
+      <h3>Donatur 6</h3>
+      <p>Rp 10.000</p>
     </div>
   </div>
-
 
 <div class="instagram-grid">
   <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CkVirPmpCkn/" data-instgrm-version="14"></blockquote>
