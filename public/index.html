@@ -5,12 +5,47 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Game The Rake</title>
   <style>
-    body {
+  body {
       font-family: Arial, sans-serif;
       background: #111;
       color: white;
+      padding: 0;
+      margin: 0;
+    }
+
+ /* Navbar */
+    .navbar {
+      background: #222;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar h2 {
+      margin: 0;
+      font-size: 18px;
+      color: #0af;
+    }
+    .navbar a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 14px;
+      transition: color 0.3s;
+    }
+    .navbar a:hover {
+      color: #0af;
+    }
+
+    /* Content */
+    .container {
       padding: 20px;
     }
+
+
     table {
       border-collapse: collapse;
       width: 100%;
@@ -24,28 +59,44 @@
     th {
       background: #222;
     }
+
+ .search-box {
+      margin-top: 15px;
+      margin-bottom: 10px;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #333;
+      background: #222;
+      color: white;
+    }
+    .search-box input:focus {
+      outline: 2px solid #0af;
+    }
+
+      /* Reuse styling from your code (gamepass, card, footer, dll) */
     .gamepass-list, .top-donatur {
       margin-top: 30px;
     }
-    .gamepass-item, .donatur-item {
+    .gamepass-item {
       background: #222;
       padding: 10px;
       margin-bottom: 10px;
       border-radius: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
-    .gamepass-item a, .donatur-item a {
+    .gamepass-item a {
       color: #0af;
       text-decoration: none;
     }
+
     .play-button {
       display: inline-block;
       margin-top: 20px;
       padding: 12px 20px;
       background: #0af;
-      text-align: center; 
+      text-align: center;
       color: #111;
       font-weight: bold;
       border-radius: 8px;
@@ -110,7 +161,7 @@ h1 {
 .card {
   background: linear-gradient(135deg, #1f1f3a, #2d2d50);
   border-radius: 14px;
-  padding: 18px;
+  padding: 30px;
   width: 180px;
   text-align: center;
   box-shadow: 0 4px 8px rgba(0,0,0,0.6);
@@ -219,6 +270,19 @@ animation: fadeLoop 2s infinite ease-in-out;
   </style>
 </head>
 <body>
+
+ <!-- Navbar -->
+  <div class="navbar">
+    <h2>The Rake REMASTERED</h2>
+    <div>
+      <a href="#leaderboard">Leaderboard</a>
+      <a href="#gamepass">Gamepass</a>
+      <a href="#topdonatur">Top Donatur</a>
+      <a href="#dukungan">Dukungan</a>
+    </div>
+  </div>
+
+
 <div class="main-content">
   <h1 class="text-3xl font-bold">Game Leaderboard The Rake REMASTERED INDONESIA</h1>
   
@@ -228,7 +292,12 @@ animation: fadeLoop 2s infinite ease-in-out;
     <div id="totalSurvivals">🛡️ Total Survivals: 0</div>
   </div>
 
-  <table class="w-full border-collapse border border-gray-700">
+ <!-- Search Player -->
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔎 Cari player...">
+    </div>
+
+  <table id="leaderboard">
     <thead>
       <tr>
         <th class="border p-2">Rank</th>
@@ -251,7 +320,7 @@ animation: fadeLoop 2s infinite ease-in-out;
 
 
   <!-- Gamepass -->
-  <div class="gamepass-list">
+    <div class="gamepass-list" id="gamepass">
     <h2 class="text-xl font-bold">Gamepass</h2>
     <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532437/HeadLamp" target="_blank">🎩 Head Lamp - 35 Robux</a></div>
     <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532513/NightVision" target="_blank">🌙 Night Vision - 160 Robux</a></div>
@@ -264,7 +333,8 @@ animation: fadeLoop 2s infinite ease-in-out;
 <a class="play-button" href="https://www.roblox.com/games/11399819772/The-Rake-REMASTERED-Indonesia" target="_blank">PLAY GAME</a>
 
 
- <h1>🏆 Top Donatur</h1>
+  <!-- Top Donatur -->
+    <h1 id="topdonatur">🏆 Top Donatur</h1>
 
   <div class="grid">
     <!-- Top Donor -->
@@ -316,76 +386,84 @@ animation: fadeLoop 2s infinite ease-in-out;
   <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CkVirPmpCkn/" data-instgrm-version="14"></blockquote>
   <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DNzSt2zUgAY/" data-instgrm-version="14"></blockquote>
 <script async src="//www.instagram.com/embed.js"></script>
-</div>
 
-  <footer>
-  © 2025 Dibuat oleh Aditya Ganteng. <br>
-  Jika ingin ditampilkan di leaderboard top Donatur, bantu dengan cara donasi: <br>
-  <a class="sociabuzz-button" href="https://sociabuzz.com/rakanadityaofficial/tribe" target="_blank">💚 Dukungan Sociabuzz</a>
-</footer>
+</div>
+   <!-- Footer -->
+    <footer id="dukungan">
+      © 2025 Dibuat oleh Aditya Ganteng. <br>
+      Jika ingin ditampilkan di leaderboard top Donatur, bantu dengan cara donasi: <br>
+      <a class="sociabuzz-button" href="https://sociabuzz.com/rakanadityaofficial/tribe" target="_blank">💚 Dukungan Sociabuzz</a>
+    </footer>
+  </div>
 
 
   <script>
-   async function loadData() {
-  try {
-    const res = await fetch("/api/leaderboard");
-    const players = await res.json();
+    let allPlayers = []; // simpan semua player biar bisa di-search
+    const MAX_PLAYERS = 100; // batas maksimal player ditampilkan
 
-    const totalPoints = players.reduce((a, b) => a + Number(b.points), 0);
-    const totalSurvivals = players.reduce((a, b) => a + Number(b.survivals), 0);
+    async function loadData() {
+      try {
+        const res = await fetch("/api/leaderboard");
+        const players = await res.json();
 
-    document.getElementById("totalPlayers").textContent = "👤 Total Players: " + players.length;
-    document.getElementById("totalPoints").textContent = "⭐ Total Points: " + totalPoints;
-    document.getElementById("totalSurvivals").textContent = "🛡️ Total Survivals: " + totalSurvivals;
+        const totalPoints = players.reduce((a, b) => a + Number(b.points), 0);
+        const totalSurvivals = players.reduce((a, b) => a + Number(b.survivals), 0);
 
-    const sorted = players.sort((a, b) => b.points - a.points);
-    const tbody = document.getElementById("leaderboard-body");
-    tbody.innerHTML = "";
+        document.getElementById("totalPlayers").textContent = "👤 Total Players: " + players.length;
+        document.getElementById("totalPoints").textContent = "⭐ Total Points: " + totalPoints;
+        document.getElementById("totalSurvivals").textContent = "🛡️ Total Survivals: " + totalSurvivals;
 
-    sorted.forEach((p, i) => {
-      let formattedDate = "";
-      if (p.lastUpdated) {
-        formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
+        // Simpan untuk search
+        allPlayers = players.sort((a, b) => b.points - a.points);
+
+        renderTable(allPlayers.slice(0, MAX_PLAYERS));
+
+        // update last refreshed
+        const now = new Date().toLocaleString("id-ID", {
           timeZone: "Asia/Jakarta",
           dateStyle: "short",
           timeStyle: "medium"
         });
+        document.getElementById("lastRefreshed").textContent = "✅ Last refreshed: " + now;
+      } catch (err) {
+        console.error("Gagal load leaderboard:", err);
+        document.getElementById("lastRefreshed").textContent = "❌ Gagal refresh data (" + new Date().toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta" }) + ")";
       }
+    }
 
-      const row = `
-        <tr>
-          <td class="border p-2">${i+1}</td>
-          <td class="border p-2">${p.username}</td>
-          <td class="border p-2">${p.points}</td>
-          <td class="border p-2">${p.survivals}</td>
-          <td class="border p-2">${formattedDate}</td>
-        </tr>
-      `;
-      tbody.innerHTML += row;
+    function renderTable(players) {
+      const tbody = document.getElementById("leaderboard-body");
+      tbody.innerHTML = "";
+      players.forEach((p, i) => {
+        let formattedDate = "";
+        if (p.lastUpdated) {
+          formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
+            timeZone: "Asia/Jakarta",
+            dateStyle: "short",
+            timeStyle: "medium"
+          });
+        }
+        tbody.innerHTML += `
+          <tr>
+            <td>${i+1}</td>
+            <td>${p.username}</td>
+            <td>${p.points}</td>
+            <td>${p.survivals}</td>
+            <td>${formattedDate}</td>
+          </tr>
+        `;
+      });
+    }
+
+    // Search player
+    document.getElementById("searchInput").addEventListener("input", function() {
+      const keyword = this.value.toLowerCase();
+      const filtered = allPlayers.filter(p => p.username.toLowerCase().includes(keyword));
+      renderTable(filtered.slice(0, MAX_PLAYERS));
     });
 
-    // update last refreshed info (sukses)
-    const now = new Date().toLocaleString("id-ID", {
-      timeZone: "Asia/Jakarta",
-      dateStyle: "short",
-      timeStyle: "medium"
-    });
-    const refreshedEl = document.getElementById("lastRefreshed");
-    refreshedEl.textContent = "✅ Last refreshed: " + now;
-    refreshedEl.style.color = "lightgreen";
-
-  } catch (err) {
-    console.error("Gagal load leaderboard:", err);
-
-    // update last refreshed info (gagal)
-    const refreshedEl = document.getElementById("lastRefreshed");
-    refreshedEl.textContent = "❌ Gagal refresh data (" + new Date().toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta" }) + ")";
-    refreshedEl.style.color = "red";
-  }
-}
-
-loadData();
-setInterval(loadData, 60000);
+    loadData();
+    setInterval(loadData, 60000);
 
   </script>
 </body>
