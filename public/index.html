@@ -106,28 +106,7 @@
     .play-button:hover {
       background: #08c;
     }
-    
 
-   
-
-.instagram-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* responsive grid */
-  gap: 32px; /* jarak antar post */
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
-}
-
-.instagram-grid blockquote.instagram-media {
-  width: 100% !important;
-  max-width: 100% !important;
-  margin: 0 !important;
-}
-
-.instagram-grid iframe {
-  width: 100% !important;
-}
 
 .main-content {
   flex: 1; /* ini membuat konten menutupi sisa layar */
@@ -265,8 +244,6 @@ animation: fadeLoop 2s infinite ease-in-out;
 .sociabuzz-button:hover {
   background: #218838; /* hijau lebih gelap */
 }
-
-<style>
 /* --- responsive design --- */
 @media (max-width: 768px) {
   .navbar {
@@ -315,11 +292,6 @@ animation: fadeLoop 2s infinite ease-in-out;
     max-width: 320px;
   }
 
-  /* instagram grid 1 kolom */
-  .instagram-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
 
   .play-button {
     display: block;
@@ -342,24 +314,23 @@ animation: fadeLoop 2s infinite ease-in-out;
     font-size: 12px;
   }
 }
-</style>
-
 
 
   </style>
 </head>
 <body>
 
- <!-- Navbar -->
-  <div class="navbar">
-    <h2>The Rake REMASTERED</h2>
-    <div>
-      <a href="#leaderboard">Leaderboard</a>
-      <a href="#gamepass">Gamepass</a>
-      <a href="#topdonatur">Top Donatur</a>
-      <a href="#dukungan">Dukungan</a>
-    </div>
+<!-- Navbar -->
+<div class="navbar">
+  <h2>The Rake REMASTERED</h2>
+  <div>
+    <a href="#leaderboard">Leaderboard</a>
+    <a href="gamepass-shop.html">Gamepass</a>
+    <a href="#topdonatur">Top Donatur</a>
+    <a href="update.html">Update Sosial Media</a>
+    <a href="#dukungan">Dukungan</a>
   </div>
+</div>
 
 
 <div class="main-content">
@@ -397,16 +368,6 @@ animation: fadeLoop 2s infinite ease-in-out;
   Last refreshed: belum ada
 </p>
 
-
-  <!-- Gamepass -->
-    <div class="gamepass-list" id="gamepass">
-    <h2 class="text-xl font-bold">Gamepass</h2>
-    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532437/HeadLamp" target="_blank">🎩 Head Lamp - 35 Robux</a></div>
-    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532513/NightVision" target="_blank">🌙 Night Vision - 160 Robux</a></div>
-    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532680/StunStick" target="_blank">⚡ Stun Stick - 360 Robux</a></div>
-    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532767/BoomBox" target="_blank">📻 Boom Box - 100 Robux</a></div>
-    <div class="gamepass-item"><a href="https://www.roblox.com/game-pass/99532863/VIP" target="_blank">👑 VIP - 300 Robux</a></div>
-  </div>
 
   <!-- Play Game Button -->
 <a class="play-button" href="https://www.roblox.com/games/11399819772/The-Rake-REMASTERED-Indonesia" target="_blank">PLAY GAME</a>
@@ -461,12 +422,6 @@ animation: fadeLoop 2s infinite ease-in-out;
     </div>
   </div>
 
-<div class="instagram-grid">
-  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CkVirPmpCkn/" data-instgrm-version="14"></blockquote>
-  <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DNzSt2zUgAY/" data-instgrm-version="14"></blockquote>
-<script async src="//www.instagram.com/embed.js"></script>
-
-</div>
    <!-- Footer -->
     <footer id="dukungan">
       © 2025 Dibuat oleh Aditya Ganteng. <br>
