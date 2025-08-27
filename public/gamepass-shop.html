@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gamepass Shop - The Rake</title>
+  <title>Gamepass Shop - The Rake REMASTERED</title>
   <style>
-     body {
+ body {
       font-family: Arial, sans-serif;
       background: #111;
       color: white;
@@ -40,124 +40,163 @@
       color: #0af;
     }
 
-    .gamepass-list { padding:20px; max-width:800px; margin:auto; }
-    .gamepass-list h2 { margin-bottom:20px; }
+    /* Shop */
+    .shop-container {
+      max-width: 1000px;
+      margin: 100px auto 50px auto;
+      padding: 20px;
+    }
 
-    .gamepass-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background:#222;
-      padding:12px;
-      margin-bottom:15px;
-      border-radius:8px;
-      flex-wrap:wrap;
+    .shop-title {
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #ffd700;
     }
-    .gamepass-info {
-      flex: 1;
+
+    .gamepass-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
     }
-    .gamepass-item img.gp-img {
-      width:70px;
-      height:70px;
-      border-radius:6px;
-      object-fit: cover;
+
+    .gamepass-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      transition: 0.3s;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
-    .gamepass-item a.link {
-      color:#0af;
-      text-decoration:none;
-      font-weight:bold;
-      display:block;
-      margin-bottom:8px;
+
+    .gamepass-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
     }
+
+    .gamepass-card img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .gamepass-card h3 {
+      margin: 10px 0;
+      font-size: 1.3em;
+    }
+
+    .gamepass-card p {
+      font-size: 0.95em;
+      margin-bottom: 10px;
+    }
+
     .buy-btn {
-      background:#0af;
-      color:white;
-      padding:8px 14px;
-      border:none;
-      border-radius:6px;
-      cursor:pointer;
-      font-size:14px;
-      font-weight:bold;
-      transition: background 0.2s ease;
-      text-decoration:none;
-      display:inline-block;
-    }
-    .buy-btn:hover {
-      background:#08c;
+      display: inline-block;
+      background: #ffd700;
+      color: black;
+      padding: 10px 15px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
-    /* --- responsive style --- */
-    @media (max-width: 600px) {
-      .gamepass-item {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .gamepass-item img.gp-img {
-        width:100%;
-        height:auto;
-        border-radius:8px;
-      }
-      .buy-btn {
-        width:100%;
-        text-align:center;
-        margin-top:5px;
-      }
+    .buy-btn:hover {
+      background: #ffae00;
+    }
+
+    /* Badge Recommended */
+    .badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: linear-gradient(45deg, #ff4d4d, #ff9900);
+      color: #fff;
+      font-size: 12px;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 50px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.4);
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
     }
   </style>
 </head>
 <body>
+  <!-- Navbar -->
   <div class="navbar">
-    <a href="index.html#leaderboard">🏆 Leaderboard</a>
-    <a href="gamepass-shop.html">🛒 Gamepass</a>
-    <a href="index.html#topdonatur">💎 Top Donatur</a>
-    <a href="update.html">📢 Update Sosial Media</a>
-    <a href="index.html#dukungan">🤝 Dukungan</a>
+    <h2> The Rake REMASTERED</h2>
+    <div>
+      <a href="index.html#leaderboard">🏆 Leaderboard</a>
+      <a href="gamepass-shop.html">🛒 Gamepass</a>
+      <a href="index.html#topdonatur">💎 Top Donatur</a>
+      <a href="update.html">📢 Update Sosial Media</a>
+      <a href="index.html#dukungan">🤝 Dukungan</a>
+    </div>
   </div>
 
-  <div class="gamepass-list">
-    <h2>🛒 Gamepass Shop</h2>
-
-    <div class="gamepass-item">
-      <img src="https://tr.rbxcdn.com/180DAY-119afb593fc05aed4a00f5523f7c133e/150/150/Image/Webp/noFilter" alt="Head Lamp" class="gp-img">
-      <div class="gamepass-info">
-        <a class="link" href="https://www.roblox.com/game-pass/99532437/HeadLamp" target="_blank">🎩 Head Lamp - 35 Robux</a>
-        <a class="buy-btn" href="https://www.roblox.com/game-pass/99532437/HeadLamp" target="_blank">Buy Now</a>
+  <!-- Shop -->
+  <div class="shop-container">
+    <h1 class="shop-title">🛒 Gamepass Shop</h1>
+    <div class="gamepass-grid">
+      
+      <!-- Example 1 -->
+      <div class="gamepass-card">
+        <img src="https://tr.rbxcdn.com/180DAY-119afb593fc05aed4a00f5523f7c133e/150/150/Image/Webp/noFilter" alt="HeadLamp Gamepass">
+        <h3>Head Lamp</h3>
+        <p>Spawn with your very own head-shaped lantern.</p>
+        <a href="https://www.roblox.com/game-pass/99532437/HeadLamp" class="buy-btn">Buy 35 ROBUX</a>
       </div>
-    </div>
 
-    <div class="gamepass-item">
-      <img src="https://tr.rbxcdn.com/180DAY-4fa42e7295e42960ff9a9e9af69f2001/150/150/Image/Webp/noFilter" alt="Night Vision" class="gp-img">
-      <div class="gamepass-info">
-        <a class="link" href="https://www.roblox.com/game-pass/99532513/NightVision" target="_blank">🌙 Night Vision - 160 Robux</a>
-        <a class="buy-btn" href="https://www.roblox.com/game-pass/99532513/NightVision" target="_blank">Buy Now</a>
+      <!-- Example 2 -->
+      <div class="gamepass-card">
+        <span class="badge">🔥 Recommended</span>
+        <img src="https://tr.rbxcdn.com/180DAY-4fa42e7295e42960ff9a9e9af69f2001/150/150/Image/Webp/noFilter" alt="Night Vision">
+        <h3>Night Vision</h3>
+        <p>See clearly in the dark forest, no longer afraid of The Rake!</p>
+        <a href="https://www.roblox.com/game-pass/99532513/NightVision" class="buy-btn">Buy 160 ROBUX</a>
       </div>
-    </div>
 
-    <div class="gamepass-item">
-      <img src="https://tr.rbxcdn.com/180DAY-d798e97a095b6b99470976808daf0fe0/150/150/Image/Webp/noFilter" alt="Stun Stick" class="gp-img">
-      <div class="gamepass-info">
-        <a class="link" href="https://www.roblox.com/game-pass/99532680/StunStick" target="_blank">⚡ Stun Stick - 360 Robux</a>
-        <a class="buy-btn" href="https://www.roblox.com/game-pass/99532680/StunStick" target="_blank">Buy Now</a>
+      <!-- Example 3 -->
+      <div class="gamepass-card">
+        <img src="https://tr.rbxcdn.com/180DAY-d798e97a095b6b99470976808daf0fe0/150/150/Image/Webp/noFilter" alt="Stun Stick">
+        <h3>Stun Stick</h3>
+        <p>Electric baton to hit or stun the Rake.</p>
+        <a href="https://www.roblox.com/game-pass/99532680/StunStick" class="buy-btn">Buy 360 ROBUX</a>
       </div>
-    </div>
 
-    <div class="gamepass-item">
-      <img src="https://tr.rbxcdn.com/180DAY-015b57e20cf2d0d193e6a0d54974ef36/150/150/Image/Webp/noFilter" alt="Boom Box" class="gp-img">
-      <div class="gamepass-info">
-        <a class="link" href="https://www.roblox.com/game-pass/99532767/BoomBox" target="_blank">📻 Boom Box - 100 Robux</a>
-        <a class="buy-btn" href="https://www.roblox.com/game-pass/99532767/BoomBox" target="_blank">Buy Now</a>
+      <!-- Example 4 -->
+      <div class="gamepass-card">
+        <img src="https://tr.rbxcdn.com/180DAY-015b57e20cf2d0d193e6a0d54974ef36/150/150/Image/Webp/noFilter" alt="BoomBox">
+        <h3>BoomBox</h3>
+        <p>Play your favorite music using your own ID.</p>
+        <a href="https://www.roblox.com/game-pass/99532767/BoomBox" class="buy-btn">Buy 100 ROBUX</a>
       </div>
-    </div>
 
-    <div class="gamepass-item">
-      <img src="https://tr.rbxcdn.com/180DAY-67800fb2fc4dce733be7bf865a2ad7ba/150/150/Image/Webp/noFilter" alt="VIP" class="gp-img">
-      <div class="gamepass-info">
-        <a class="link" href="https://www.roblox.com/game-pass/99532863/VIP" target="_blank">👑 VIP - 300 Robux</a>
-        <a class="buy-btn" href="https://www.roblox.com/game-pass/99532863/VIP" target="_blank">Buy Now</a>
+      <!-- Example 5 VIP -->
+      <div class="gamepass-card">
+        <span class="badge">🌟 Best Value</span>
+        <img src="https://tr.rbxcdn.com/180DAY-67800fb2fc4dce733be7bf865a2ad7ba/150/150/Image/Webp/noFilte" alt="VIP">
+        <h3>VIP</h3>
+        <p>
+          • Exclusive Lobby Nametag<br>
+          • Night Vision<br>
+          • UV Lamp<br>
+          • Beartrap<br>
+          • BoomBox<br>
+          • First Aid<br>
+          • Gravity Coil
+        </p>
+        <a href="https://www.roblox.com/game-pass/99532863/VIP" class="buy-btn">Buy 300 ROBUX</a>
       </div>
-    </div>
 
+    </div>
   </div>
 </body>
 </html>
