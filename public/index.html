@@ -137,6 +137,13 @@ footer {
     </tbody>
   </table>
 
+
+<!-- Last refreshed -->
+<p id="lastRefreshed" style="margin-top:10px; font-size:0.9rem;">
+  Last refreshed: belum ada
+</p>
+
+
   <!-- Gamepass -->
   <div class="gamepass-list">
     <h2 class="text-xl font-bold">Gamepass</h2>
@@ -188,49 +195,67 @@ footer {
   </footer>
 
   <script>
-    async function loadData() {
-      try {
-        const res = await fetch("/api/leaderboard");
-        const players = await res.json();
+   async function loadData() {
+  try {
+    const res = await fetch("/api/leaderboard");
+    const players = await res.json();
 
-        const totalPoints = players.reduce((a, b) => a + Number(b.points), 0);
-        const totalSurvivals = players.reduce((a, b) => a + Number(b.survivals), 0);
+    const totalPoints = players.reduce((a, b) => a + Number(b.points), 0);
+    const totalSurvivals = players.reduce((a, b) => a + Number(b.survivals), 0);
 
-        document.getElementById("totalPlayers").textContent = "👤 Total Players: " + players.length;
-        document.getElementById("totalPoints").textContent = "⭐ Total Points: " + totalPoints;
-        document.getElementById("totalSurvivals").textContent = "🛡️ Total Survivals: " + totalSurvivals;
+    document.getElementById("totalPlayers").textContent = "👤 Total Players: " + players.length;
+    document.getElementById("totalPoints").textContent = "⭐ Total Points: " + totalPoints;
+    document.getElementById("totalSurvivals").textContent = "🛡️ Total Survivals: " + totalSurvivals;
 
-        const sorted = players.sort((a, b) => b.points - a.points);
-        const tbody = document.getElementById("leaderboard-body");
-        tbody.innerHTML = "";
+    const sorted = players.sort((a, b) => b.points - a.points);
+    const tbody = document.getElementById("leaderboard-body");
+    tbody.innerHTML = "";
 
-        sorted.forEach((p, i) => {
-          let formattedDate = "";
-          if (p.lastUpdated) {
-            formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
-              timeZone: "Asia/Jakarta",
-              dateStyle: "short",
-              timeStyle: "medium"
-            });
-          }
-
-          const row = `
-            <tr>
-              <td class="border p-2">${i+1}</td>
-              <td class="border p-2">${p.username}</td>
-              <td class="border p-2">${p.points}</td>
-              <td class="border p-2">${p.survivals}</td>
-              <td class="border p-2">${formattedDate}</td>
-            </tr>
-          `;
-          tbody.innerHTML += row;
+    sorted.forEach((p, i) => {
+      let formattedDate = "";
+      if (p.lastUpdated) {
+        formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
+          timeZone: "Asia/Jakarta",
+          dateStyle: "short",
+          timeStyle: "medium"
         });
-      } catch (err) {
-        console.error("Gagal load leaderboard:", err);
       }
-    }
 
-    loadData();
+      const row = `
+        <tr>
+          <td class="border p-2">${i+1}</td>
+          <td class="border p-2">${p.username}</td>
+          <td class="border p-2">${p.points}</td>
+          <td class="border p-2">${p.survivals}</td>
+          <td class="border p-2">${formattedDate}</td>
+        </tr>
+      `;
+      tbody.innerHTML += row;
+    });
+
+    // update last refreshed info (sukses)
+    const now = new Date().toLocaleString("id-ID", {
+      timeZone: "Asia/Jakarta",
+      dateStyle: "short",
+      timeStyle: "medium"
+    });
+    const refreshedEl = document.getElementById("lastRefreshed");
+    refreshedEl.textContent = "✅ Last refreshed: " + now;
+    refreshedEl.style.color = "lightgreen";
+
+  } catch (err) {
+    console.error("Gagal load leaderboard:", err);
+
+    // update last refreshed info (gagal)
+    const refreshedEl = document.getElementById("lastRefreshed");
+    refreshedEl.textContent = "❌ Gagal refresh data (" + new Date().toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta" }) + ")";
+    refreshedEl.style.color = "red";
+  }
+}
+
+loadData();
+setInterval(loadData, 60000);
+
   </script>
 </body>
 </html>
