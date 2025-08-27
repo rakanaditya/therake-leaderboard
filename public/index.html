@@ -266,6 +266,85 @@ animation: fadeLoop 2s infinite ease-in-out;
   background: #218838; /* hijau lebih gelap */
 }
 
+<style>
+/* --- responsive design --- */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .navbar h2 {
+    font-size: 16px;
+  }
+  .navbar a {
+    display: inline-block;
+    margin: 4px 8px 0 0;
+    font-size: 13px;
+  }
+
+  h1 {
+    font-size: 18px;
+  }
+
+  /* tabel biar bisa di-scroll */
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 14px;
+  }
+  th, td {
+    padding: 6px;
+  }
+
+  /* search box lebih kecil */
+  .search-box input {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  /* card donatur jadi 1 kolom */
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .card {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* instagram grid 1 kolom */
+  .instagram-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .play-button {
+    display: block;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+  h1 {
+    font-size: 16px;
+  }
+  .navbar h2 {
+    font-size: 14px;
+  }
+  .navbar a {
+    font-size: 12px;
+  }
+}
+</style>
+
+
 
   </style>
 </head>
