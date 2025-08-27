@@ -132,26 +132,38 @@ h1 {
       border: 2px solid gold;
     }
     .crown {
-      position: absolute;
-      top: -25px;
-      right: -15px;
-      font-size: 28px;
-      animation: crownMove 5.0s infinite ease-in-out;
-    }
+  position: absolute;
+  top: -25px;
+  right: -15px;
+  font-size: 32px;
+  animation: crownMove 2.5s infinite ease-in-out;
+  color: gold;
+  text-shadow: 
+    0 0 5px #ffd700,
+    0 0 10px #ffae00,
+    0 0 20px #ffae00,
+    0 0 40px #ffaa33;
+}
+
     @keyframes crownMove {
-  0%   { transform: rotate(0deg) translateY(0); }
-  50%  { transform: rotate(0deg)
+  0%   { transform: rotate(15deg) translateY(0); }
+  50%  { transform: rotate(15deg)
 translateY(5px); }
-  100% { transform: rotate(0deg) translateY(0); }
+  100% { transform: rotate(15deg) translateY(0); }
 }
 
     .highlight {
-      color: gold;
-      font-weight: bold;
-      font-size: 14px;
-    }
-
-
+  color: gold;
+  font-weight: bold;
+  font-size: 14px;
+  animation: fadeLoop 2s infinite ease-in-out;
+}
+@keyframes fadeLoop {
+  0%   { opacity: 0; }
+  30%  { opacity: 1; }
+  70%  { opacity: 1; }
+  100% { opacity: 0; }
+}
   </style>
 </head>
 <body>
@@ -208,8 +220,8 @@ translateY(5px); }
       <div class="crown">👑</div>
       <img src="https://images-ext-1.discordapp.net/external/LacSS3dhwzX0WLC5AmIm2w9eB5kl81CS4FyxEJAG7vE/%3Fsize%3D4096/https/cdn.discordapp.com/avatars/837180937363521556/f0997f2a95a57f1299c73c8652bd612c.png" alt="donor">
       <h3>Kodok</h3>
-      <p>Rp 100.000</p>
-      <p class="highlight">★ Top Donation</p>
+      <p>Rp 30.000</p>
+      <p class="highlight">★ Top Donatur</p>
     </div>
 
     <div class="card">
