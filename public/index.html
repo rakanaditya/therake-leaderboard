@@ -342,6 +342,7 @@ animation: fadeLoop 2s infinite ease-in-out;
     <div id="totalSurvivals">🛡️ Total Survivals: 0</div>
   </div>
 
+
  <!-- Search Player -->
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="🔎 Cari player...">
@@ -361,6 +362,18 @@ animation: fadeLoop 2s infinite ease-in-out;
       <!-- Data player dimasukkan lewat JS -->
     </tbody>
   </table>
+
+<div style="text-align:center; margin-top:15px;">
+  <label for="pageSize">Player per halaman: </label>
+  <select id="pageSize">
+    <option value="10" selected>10</option>
+    <option value="25">25</option>
+    <option value="50">50</option>
+    <option value="100">100</option>
+  </select>
+</div>
+<div id="pagination" style="margin-top:15px; text-align:center;"></div>
+
 
 
 <!-- Last refreshed -->
@@ -432,73 +445,141 @@ animation: fadeLoop 2s infinite ease-in-out;
 
 
   <script>
-    let allPlayers = []; // simpan semua player biar bisa di-search
-    const MAX_PLAYERS = 100; // batas maksimal player ditampilkan
+  let allPlayers = []; 
+  const MAX_PLAYERS = 100;
+  let PAGE_SIZE = 10;  // default
+  let currentPage = 1;
 
-    async function loadData() {
-      try {
-        const res = await fetch("/api/leaderboard");
-        const players = await res.json();
+  async function loadData() {
+    try {
+      const res = await fetch("/api/leaderboard");
+      const players = await res.json();
 
-        const totalPoints = players.reduce((a, b) => a + Number(b.points), 0);
-        const totalSurvivals = players.reduce((a, b) => a + Number(b.survivals), 0);
+      const totalPoints = players.reduce((a, b) => a + Number(b.points), 0);
+      const totalSurvivals = players.reduce((a, b) => a + Number(b.survivals), 0);
 
-        document.getElementById("totalPlayers").textContent = "👤 Total Players: " + players.length;
-        document.getElementById("totalPoints").textContent = "⭐ Total Points: " + totalPoints;
-        document.getElementById("totalSurvivals").textContent = "🛡️ Total Survivals: " + totalSurvivals;
+      document.getElementById("totalPlayers").textContent = "👤 Total Players: " + players.length;
+      document.getElementById("totalPoints").textContent = "⭐ Total Points: " + totalPoints;
+      document.getElementById("totalSurvivals").textContent = "🛡️ Total Survivals: " + totalSurvivals;
 
-        // Simpan untuk search
-        allPlayers = players.sort((a, b) => b.points - a.points);
+      allPlayers = players.sort((a, b) => b.points - a.points);
 
-        renderTable(allPlayers.slice(0, MAX_PLAYERS));
+      renderTable();
+      renderPagination();
 
-        // update last refreshed
-        const now = new Date().toLocaleString("id-ID", {
+      const now = new Date().toLocaleString("id-ID", {
+        timeZone: "Asia/Jakarta",
+        dateStyle: "short",
+        timeStyle: "medium"
+      });
+      document.getElementById("lastRefreshed").textContent = "✅ Last refreshed: " + now;
+    } catch (err) {
+      console.error("Gagal load leaderboard:", err);
+      document.getElementById("lastRefreshed").textContent = "❌ Gagal refresh data (" + new Date().toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta" }) + ")";
+    }
+  }
+
+  function renderTable() {
+    const tbody = document.getElementById("leaderboard-body");
+    tbody.innerHTML = "";
+
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const end = start + PAGE_SIZE;
+    const pagePlayers = allPlayers.slice(start, end);
+
+    pagePlayers.forEach((p, i) => {
+      let formattedDate = "";
+      if (p.lastUpdated) {
+        formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
           timeZone: "Asia/Jakarta",
           dateStyle: "short",
           timeStyle: "medium"
         });
-        document.getElementById("lastRefreshed").textContent = "✅ Last refreshed: " + now;
-      } catch (err) {
-        console.error("Gagal load leaderboard:", err);
-        document.getElementById("lastRefreshed").textContent = "❌ Gagal refresh data (" + new Date().toLocaleTimeString("id-ID", { timeZone: "Asia/Jakarta" }) + ")";
       }
-    }
-
-    function renderTable(players) {
-      const tbody = document.getElementById("leaderboard-body");
-      tbody.innerHTML = "";
-      players.forEach((p, i) => {
-        let formattedDate = "";
-        if (p.lastUpdated) {
-          formattedDate = new Date(p.lastUpdated).toLocaleString("id-ID", {
-            timeZone: "Asia/Jakarta",
-            dateStyle: "short",
-            timeStyle: "medium"
-          });
-        }
-        tbody.innerHTML += `
-          <tr>
-            <td>${i+1}</td>
-            <td>${p.username}</td>
-            <td>${p.points}</td>
-            <td>${p.survivals}</td>
-            <td>${formattedDate}</td>
-          </tr>
-        `;
-      });
-    }
-
-    // Search player
-    document.getElementById("searchInput").addEventListener("input", function() {
-      const keyword = this.value.toLowerCase();
-      const filtered = allPlayers.filter(p => p.username.toLowerCase().includes(keyword));
-      renderTable(filtered.slice(0, MAX_PLAYERS));
+      tbody.innerHTML += `
+        <tr>
+          <td>${start + i + 1}</td>
+          <td>${p.username}</td>
+          <td>${p.points}</td>
+          <td>${p.survivals}</td>
+          <td>${formattedDate}</td>
+        </tr>
+      `;
     });
+  }
 
-    loadData();
-    setInterval(loadData, 60000);
+  function renderPagination() {
+    const totalPages = Math.ceil(allPlayers.length / PAGE_SIZE);
+    const container = document.getElementById("pagination");
+    container.innerHTML = "";
 
-  </script>
+    // Prev button
+    const prevBtn = document.createElement("button");
+    prevBtn.textContent = "⬅ Prev";
+    prevBtn.disabled = currentPage === 1;
+    styleBtn(prevBtn, currentPage !== 1);
+    prevBtn.addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderTable();
+        renderPagination();
+      }
+    });
+    container.appendChild(prevBtn);
+
+    // Info halaman
+    const info = document.createElement("span");
+    info.textContent = ` Halaman ${currentPage} dari ${totalPages} `;
+    info.style.margin = "0 10px";
+    container.appendChild(info);
+
+    // Next button
+    const nextBtn = document.createElement("button");
+    nextBtn.textContent = "Next ➡";
+    nextBtn.disabled = currentPage === totalPages;
+    styleBtn(nextBtn, currentPage !== totalPages);
+    nextBtn.addEventListener("click", () => {
+      if (currentPage < totalPages) {
+        currentPage++;
+        renderTable();
+        renderPagination();
+      }
+    });
+    container.appendChild(nextBtn);
+  }
+
+  function styleBtn(btn, active) {
+    btn.style.margin = "4px";
+    btn.style.padding = "6px 12px";
+    btn.style.borderRadius = "6px";
+    btn.style.cursor = active ? "pointer" : "not-allowed";
+    btn.style.border = "1px solid #0af";
+    btn.style.background = active ? "#222" : "#444";
+    btn.style.color = active ? "#fff" : "#888";
+  }
+
+  // Event: dropdown ubah page size
+  document.getElementById("pageSize").addEventListener("change", function() {
+    PAGE_SIZE = Number(this.value);
+    currentPage = 1;
+    renderTable();
+    renderPagination();
+  });
+
+  // Search player
+  document.getElementById("searchInput").addEventListener("input", function() {
+    const keyword = this.value.toLowerCase();
+    const filtered = allPlayers.filter(p => p.username.toLowerCase().includes(keyword));
+    allPlayers = filtered; 
+    currentPage = 1;
+    renderTable();
+    renderPagination();
+  });
+
+  loadData();
+  setInterval(loadData, 60000);
+</script>
+
+
 </body>
 </html>
