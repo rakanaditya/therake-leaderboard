@@ -394,20 +394,26 @@ animation: fadeLoop 2s infinite ease-in-out;
     font-size: 12px;
   }
 }
-
-    #dev-overlay {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.95);
-  color:#fff;
-  display:none;
-  z-index:99999;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  font-family:sans-serif;
-  padding:20px;
-}
+ #dev-overlay {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.95);
+    color: #fff;
+    z-index: 999999;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+  }
+  #dev-overlay button {
+    margin-top: 12px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+  }
 
   </style>
 </head>
@@ -430,51 +436,66 @@ animation: fadeLoop 2s infinite ease-in-out;
 
 <div id="dev-overlay">
   <div>
-    <h2>Halaman Terproteksi</h2>
-    <p>Mendeteksi alat pengembang (DevTools). Akses dibatasi untuk sementara.</p>
-    <button id="dev-close">Kembali</button>
+    <h2>Perhatian — DevTools terdeteksi</h2>
+    <p>Untuk keamanan dan integritas situs, akses pengembang tidak diizinkan di sini.</p>
+    <button id="dev-hide">Tutup notifikasi</button>
   </div>
 </div>
 
 <script>
+/* DevTools detector + console warning */
 (function() {
   const overlay = document.getElementById('dev-overlay');
-  const closeBtn = document.getElementById('dev-close');
+  const hideBtn = document.getElementById('dev-hide');
 
-  // Simple heuristics
+  // Print a big styled warning to console
+  function consoleWarning() {
+    // Clear then print styled warning (membuatnya lebih terlihat)
+    try { console.clear(); } catch(e){}
+    console.log('%c⚠️ PERINGATAN ⚠️', 'font-size:20px; font-weight:bold; color:#ff4444; text-shadow: 0 1px 0 #000');
+    console.log('%cAkses DevTools pada halaman ini tidak dianjurkan. Jika kamu bukan staf pengembang, silakan kembali.', 'font-size:12px; color:#ddd');
+    // additional instruction or contact
+    console.log('%cJika kamu menemukan bug, laporkan ke admin.', 'font-size:11px; color:#aaa');
+  }
+
+  // Heuristics to detect DevTools (viewport change + slow execution)
   function isDevToolsOpen() {
-    // 1) ukuran viewport vs outer: DevTools menurunkan innerWidth/innerHeight
     const threshold = 160;
+    // 1) Perbedaan outer vs inner (paling umum)
     if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
       return true;
     }
-    // 2) waktu eksekusi debugger trick (bisa dipakai)
-    let detected = false;
+    // 2) Eksekusi blocking detection (bisa jadi false positive, hanya heuristik)
     const start = Date.now();
-    // The following loop will pause when DevTools with "pause on exceptions" or breakpoints is active.
-    for (let i = 0; i < 1e5; i++) {
-      // no-op
-    }
-    if (Date.now() - start > 1000) detected = true;
-    return detected;
+    for (let i = 0; i < 1e5; i++) { /* busy work */ }
+    if (Date.now() - start > 1000) return true; // jika terlalu lama, mungkin pause di debugger
+    return false;
   }
 
+  let lastState = false;
   function checkLoop() {
     try {
-      if (isDevToolsOpen()) {
+      const open = isDevToolsOpen();
+      if (open && !lastState) {
+        // first time detected
+        consoleWarning();
         overlay.style.display = 'flex';
-      } else {
+      } else if (!open && lastState) {
         overlay.style.display = 'none';
       }
+      lastState = open;
     } catch (e) {
-      console.error(e);
+      // jangan ganggu user jika error
+      //console.error(e);
     } finally {
-      setTimeout(checkLoop, 1500);
+      setTimeout(checkLoop, 1200);
     }
   }
 
-  closeBtn.addEventListener('click', () => overlay.style.display = 'none');
+  hideBtn.addEventListener('click', () => overlay.style.display = 'none');
 
+  // initial call (juga tampil ke console saat script dijalankan)
+  consoleWarning();
   checkLoop();
 })();
 </script>
